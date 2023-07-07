@@ -1,3 +1,3 @@
 <?php
 
-echo "Dit is de config van de new";
+echo "Dit is de config van de live";
