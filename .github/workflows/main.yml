@@ -1,0 +1,24 @@
+name: Merge Development into Live
+
+on:
+  push:
+    branches:
+      - Development
+
+jobs:
+  merge:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Merge changes
+        run: |
+          git config --global user.name "CI"
+          git config --global user.email "ci@example.com"
+
+          git checkout Live
+          git merge --no-ff -X theirs ${{ github.event.before }} -- wp_config.php
+          git commit -m "Merge Development into Live (skipping wp_config.php)"
+          git push origin Live
